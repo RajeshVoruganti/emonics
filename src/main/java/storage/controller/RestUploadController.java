@@ -72,7 +72,15 @@ public class RestUploadController {
         }
 
 
-            saveUploadedFiles(Arrays.asList(uploadfile));
+            try {
+				saveUploadedFiles(Arrays.asList(uploadfile));
+			} catch (IOException e) {
+				e.printStackTrace();
+				 return new ResponseEntity("Error not uploaded - " +
+			                uploadfile.getOriginalFilename(), new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
+
+				
+			}
 
 
         return new ResponseEntity("Successfully uploaded - " +
@@ -89,7 +97,7 @@ public class RestUploadController {
 
 
     //save file
-    private void saveUploadedFiles(List<MultipartFile> files)  {
+    private void saveUploadedFiles(List<MultipartFile> files) throws IOException  {
 
         for (MultipartFile file : files) {
         	
@@ -97,7 +105,6 @@ public class RestUploadController {
                 continue; //next pls
             }
             System.out.println("file loding.../n/n/n/n");
-            try {
             	Path path = Paths.get(UPLOADED_FOLDER);
             	if(Files.notExists(path)){
                     Files.createFile(Files.createDirectories(path)).toFile();
@@ -106,12 +113,6 @@ public class RestUploadController {
             	convFile.createNewFile();
                 file.transferTo(convFile);
                 saveDataFile(convFile);
-                //fileSystemStorageService.hi();
-            }catch(Exception e) {
-            	e.printStackTrace();
-            }
-           
-
         }
 
     }
