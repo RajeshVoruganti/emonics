@@ -14,3 +14,10 @@ Steps :
   - To Launch Project Run Application.java
   - Can access UI from http://localhost:8080
  
+METADATA FILE SAMPLE
+{
+<PROP_NAME>:<PROP VALUE>
+<PROP_NAME>:<PROP VALUE>
+<PROP_NAME>:<PROP VALUE>
+......
+}

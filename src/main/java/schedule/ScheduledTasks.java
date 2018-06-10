@@ -31,14 +31,14 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate =  3600 * 1000)
     public void reportCurrentTime() {
     	
     	Date time = new Date(System.currentTimeMillis() - 3600 * 1000);
     	MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		try {
-			helper.setTo("sailendra.mandla@gmail.com");
+			helper.setTo("<your_id>@gmail.com");
 			helper.setText("Files added in last hour");
 			List<DataFile> dataFiles = dataFileRepository.findByTime(time);
 			for(DataFile file: dataFiles) {
